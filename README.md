@@ -11,8 +11,11 @@ A PC troubleshooter with 5 options to help you identify and solve common compute
 ## Architecture
 
 <img width="578" height="696" alt="pctroubleshooter" src="https://github.com/user-attachments/assets/e669a1ca-b457-4053-91f6-cabbc9f4ba51" />
+
 ### Code infrastructure
+
 ShowResult() is used to display the detected problem and its suggested solution. It hides the question panel, shows the answer panel, updates the labels, and saves the problem to the history.
+
 ```
         private void ShowResult(string problem, string solution) //Jokaisen ratkaisun loppuvaihe
         {
