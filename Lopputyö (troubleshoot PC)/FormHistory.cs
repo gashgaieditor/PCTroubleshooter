@@ -8,7 +8,8 @@ namespace PCTroubleshooter
 {
     public partial class FormHistory : Form
     {
-        private readonly string historyFilePath = Path.Combine(Application.StartupPath, "historia.txt");
+        private readonly string historyFilePath =
+            Path.Combine(Application.StartupPath, "historia.txt");
 
         public FormHistory()
         {
@@ -25,18 +26,23 @@ namespace PCTroubleshooter
         {
             lstHistory.Items.Clear();
 
-            if (File.Exists(historyFilePath))
-            {
-                string[] lines = File.ReadAllLines(historyFilePath);
-
-                for (int i = lines.Length - 1; i >= 0; i--)
-                {
-                    lstHistory.Items.Add(lines[i]);
-                }
-            }
-            else
+            if (!File.Exists(historyFilePath))
             {
                 lstHistory.Items.Add("Ei vielä historiaa.");
+                return;
+            }
+
+            string[] lines = File.ReadAllLines(historyFilePath);
+
+            if (lines.Length == 0)
+            {
+                lstHistory.Items.Add("Ei vielä historiaa.");
+                return;
+            }
+
+            for (int i = lines.Length - 1; i >= 0; i--)
+            {
+                lstHistory.Items.Add(lines[i]);
             }
         }
 
@@ -49,7 +55,9 @@ namespace PCTroubleshooter
                 if (File.Exists(historyFilePath))
                 {
                     List<string> lines = File.ReadAllLines(historyFilePath).ToList();
+
                     lines.Remove(selectedLine);
+
                     File.WriteAllLines(historyFilePath, lines);
                 }
 
